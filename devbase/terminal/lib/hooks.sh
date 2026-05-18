@@ -22,14 +22,14 @@ _run_hooks() {
   done
 
   local count=${#scripts[@]}
-  gum log --time rfc822 --level debug "discovered [$count] $phase script(s)"
+  gum log --time rfc822 --level debug "discovered $count $phase script(s)"
 
   (( count == 0 )) && return 0
 
   for script in "${scripts[@]}"; do
     local name
     name=$(basename "$script")
-    gum log --time rfc822 --level debug "running $phase hook: $name"
+    gum log --time rfc822 --level info "running $phase hook: $name"
     bash "$script" || {
       gum log --time rfc822 --level error "$phase hook '$name' failed (exit $?), aborting"
       return 1
